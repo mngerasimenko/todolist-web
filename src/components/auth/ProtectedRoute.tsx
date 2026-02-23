@@ -1,0 +1,25 @@
+import { Navigate } from 'react-router-dom'
+import { useAuthStore } from '@/store/authStore'
+
+interface ProtectedRouteProps {
+  children: React.ReactNode
+}
+
+// Компонент-обёртка для защищённых маршрутов
+export function ProtectedRoute({ children }: ProtectedRouteProps) {
+  const { isAuthenticated, isLoading } = useAuthStore()
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-muted-foreground text-lg">Загрузка...</div>
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />
+  }
+
+  return <>{children}</>
+}

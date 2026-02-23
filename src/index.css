@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --color-primary: hsl(214, 90%, 52%);
+  --color-primary-foreground: #ffffff;
+  --color-primary-10: hsla(214, 90%, 52%, 0.1);
+  --color-primary-50: hsla(214, 90%, 52%, 0.5);
+
+  --color-success: hsl(145, 65%, 42%);
+  --color-success-10: hsla(145, 65%, 42%, 0.1);
+
+  --color-destructive: hsl(3, 85%, 55%);
+  --color-destructive-10: hsla(3, 85%, 55%, 0.1);
+  --color-destructive-foreground: #ffffff;
+
+  --color-background: hsl(220, 20%, 97%);
+  --color-foreground: hsl(220, 15%, 20%);
+  --color-muted: hsl(220, 15%, 95%);
+  --color-muted-foreground: hsl(220, 10%, 50%);
+
+  --color-card: #ffffff;
+  --color-card-foreground: hsl(220, 15%, 20%);
+
+  --color-border: hsla(220, 15%, 20%, 0.1);
+  --color-input: hsla(220, 15%, 20%, 0.2);
+  --color-ring: hsl(214, 90%, 52%);
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
