@@ -1,22 +1,12 @@
-# Стадия 1: сборка React-приложения
-FROM node:20-alpine AS builder
-
-WORKDIR /app
-
-COPY package.json package-lock.json ./
-RUN npm ci
-
-COPY . .
-RUN npm run build
-
-# Стадия 2: nginx для раздачи статики
+# Раздача собранного React SPA через nginx.
+# dist/ собирается в CI/CD перед вызовом docker build.
 FROM nginx:alpine
 
 # Удаляем дефолтную конфигурацию nginx
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Копируем собранное приложение и конфиг nginx
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY dist/ /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
