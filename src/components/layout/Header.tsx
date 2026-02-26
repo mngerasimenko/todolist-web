@@ -37,7 +37,7 @@ export function Header() {
               <Select
                 value={currentList?.id?.toString() || ''}
                 onChange={handleListChange}
-                className="w-40 h-8 text-sm"
+                className="w-40 h-8 text-sm leading-8"
               >
                 {lists.map((list) => (
                   <option key={list.id} value={list.id}>
