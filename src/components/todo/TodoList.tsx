@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import { useTodoStore } from '@/store/todoStore'
 import { TodoItem } from './TodoItem'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -47,9 +48,20 @@ export function TodoList({ onEditTodo }: TodoListProps) {
 
   return (
     <div className="space-y-2">
-      {sortedTodos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} onEdit={onEditTodo} />
-      ))}
+      <AnimatePresence initial={false}>
+        {sortedTodos.map((todo) => (
+          <motion.div
+            key={todo.id}
+            layout
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
+            <TodoItem todo={todo} onEdit={onEditTodo} />
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   )
 }
