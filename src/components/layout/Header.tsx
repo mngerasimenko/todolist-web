@@ -24,7 +24,7 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-border bg-card shadow-sm">
+      <header className="sticky top-0 z-40 border-b border-border bg-card/80 backdrop-blur-md shadow-[var(--shadow-card)]">
         <div className="mx-auto max-w-4xl flex items-center justify-between h-14 px-4">
           {/* Левая часть: пользователь и выбор списка */}
           <div className="flex items-center gap-3">

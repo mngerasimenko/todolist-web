@@ -43,7 +43,7 @@ const DialogContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> 
     <div
       ref={ref}
       className={cn(
-        'relative rounded-lg border border-border bg-card p-6 shadow-lg animate-in fade-in-0 zoom-in-95',
+        'relative rounded-lg border border-border bg-card p-6 shadow-[var(--shadow-elevated)] animate-in fade-in-0 zoom-in-95',
         className
       )}
       {...props}
