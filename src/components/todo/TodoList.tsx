@@ -1,5 +1,6 @@
 import { useTodoStore } from '@/store/todoStore'
 import { TodoItem } from './TodoItem'
+import { Skeleton } from '@/components/ui/skeleton'
 import type { TodoResponse } from '@/types'
 import { ListChecks } from 'lucide-react'
 
@@ -25,7 +26,11 @@ export function TodoList({ onEditTodo }: TodoListProps) {
 
   if (todosLoading) {
     return (
-      <div className="text-center py-12 text-muted-foreground">Загрузка задач...</div>
+      <div className="space-y-2">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <TodoItemSkeleton key={i} />
+        ))}
+      </div>
     )
   }
 
@@ -45,6 +50,18 @@ export function TodoList({ onEditTodo }: TodoListProps) {
       {sortedTodos.map((todo) => (
         <TodoItem key={todo.id} todo={todo} onEdit={onEditTodo} />
       ))}
+    </div>
+  )
+}
+
+function TodoItemSkeleton() {
+  return (
+    <div className="flex items-center gap-3 rounded-lg border border-border bg-card p-3">
+      <Skeleton className="h-4 w-4 rounded" />
+      <div className="flex-1 space-y-2">
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-3 w-1/2" />
+      </div>
     </div>
   )
 }

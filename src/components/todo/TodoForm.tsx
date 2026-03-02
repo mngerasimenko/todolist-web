@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { toast } from 'sonner'
 import { useAuthStore } from '@/store/authStore'
 import { useTodoStore } from '@/store/todoStore'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
@@ -70,6 +71,7 @@ export function TodoForm({ open, onOpenChange, editingTodo }: TodoFormProps) {
         addTodo(created)
       }
       onOpenChange(false)
+      toast.success(isEditing ? 'Задача обновлена' : 'Задача создана')
     } catch (err) {
       if (axios.isAxiosError(err) && err.response?.data) {
         const apiError = err.response.data as ApiError

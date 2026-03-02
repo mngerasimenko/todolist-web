@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'sonner'
 import { useTodoStore } from '@/store/todoStore'
 import { useAuthStore } from '@/store/authStore'
 import { Button } from '@/components/ui/button'
@@ -22,16 +23,23 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
   const isOwner = todo.user_id === user?.id
 
   const handleDelete = async () => {
-    if (!confirm('Удалить задачу?')) return
-    setDeleting(true)
-    try {
-      await todosApi.deleteTodo(todo.id)
-      removeTodo(todo.id)
-    } catch {
-      // Ошибка удаления — ничего не делаем
-    } finally {
-      setDeleting(false)
-    }
+    toast('Удалить задачу?', {
+      action: {
+        label: 'Удалить',
+        onClick: async () => {
+          setDeleting(true)
+          try {
+            await todosApi.deleteTodo(todo.id)
+            removeTodo(todo.id)
+            toast.success('Задача удалена')
+          } catch {
+            toast.error('Не удалось удалить задачу')
+          } finally {
+            setDeleting(false)
+          }
+        },
+      },
+    })
   }
 
   return (

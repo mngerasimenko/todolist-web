@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { toast } from 'sonner'
 import { useTodoStore } from '@/store/todoStore'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
@@ -8,6 +9,7 @@ import { Label } from '@/components/ui/label'
 import * as listsApi from '@/api/lists'
 import type { ListMemberResponse, ApiError } from '@/types'
 import axios from 'axios'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Users, Plus, LogIn, LogOut as LogOutIcon } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 
@@ -86,6 +88,7 @@ function CreateListTab({ onClose }: { onClose: () => void }) {
       addList(list)
       selectList(list)
       onClose()
+      toast.success(`Список "${list.name}" создан`)
     } catch (err) {
       if (axios.isAxiosError(err) && err.response?.data) {
         setError((err.response.data as ApiError).message || 'Ошибка создания')
@@ -155,6 +158,7 @@ function JoinListTab({ onClose }: { onClose: () => void }) {
       }
       selectList(list)
       onClose()
+      toast.success(`Вы вступили в список "${list.name}"`)
     } catch (err) {
       if (axios.isAxiosError(err) && err.response?.data) {
         setError((err.response.data as ApiError).message || 'Ошибка вступления')
@@ -233,7 +237,19 @@ function MembersTab() {
   }
 
   if (loading) {
-    return <p className="text-sm text-muted-foreground pt-4">Загрузка...</p>
+    return (
+      <div className="pt-2 space-y-2">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="flex items-center justify-between rounded-md border border-border p-2.5">
+            <div className="flex items-center gap-2">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-3 w-16" />
+            </div>
+            <Skeleton className="h-3 w-20" />
+          </div>
+        ))}
+      </div>
+    )
   }
 
   return (
@@ -269,15 +285,16 @@ function LeaveListTab({ onClose }: { onClose: () => void }) {
 
   const handleLeave = async () => {
     if (!currentList) return
-    if (!confirm(`Покинуть список "${currentList.name}"? Ваши приватные задачи будут удалены.`)) return
 
     setLoading(true)
     setError('')
     try {
+      const listName = currentList.name
       await listsApi.leaveList(currentList.id)
       removeList(currentList.id)
       await loadLists()
       onClose()
+      toast.success(`Вы покинули список "${listName}"`)
     } catch (err) {
       if (axios.isAxiosError(err) && err.response?.data) {
         setError((err.response.data as ApiError).message || 'Ошибка')

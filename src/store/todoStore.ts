@@ -45,7 +45,7 @@ export const useTodoStore = create<TodoState>((set, get) => ({
   todos: [],
   todosLoading: false,
 
-  filter: 'all',
+  filter: 'active',
 
   loadLists: async () => {
     set({ listsLoading: true })
@@ -159,7 +159,7 @@ export const useTodoStore = create<TodoState>((set, get) => ({
       lists: [],
       currentList: null,
       todos: [],
-      filter: 'all',
+      filter: 'active',
       listsLoading: false,
       todosLoading: false,
     })
