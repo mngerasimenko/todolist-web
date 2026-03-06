@@ -95,7 +95,9 @@ jobs:
             docker rm todo-web 2>/dev/null || true
             docker run -d \
               --name todo-web \
-              -p 3000:80 \
               --network todo-network \
               --restart unless-stopped \
               mngerasimenko/todo-web:${{ github.sha }}
+
+            # Перезагрузка nginx-proxy для подхвата нового контейнера
+            docker exec nginx-proxy nginx -s reload 2>/dev/null || true
