@@ -187,3 +187,9 @@ nginx обеспечивает:
 
 - [Todo List — сервер](https://github.com/mngerasimenko/todo) — Spring Boot REST API бэкенд
 - [Todo List — Android](https://github.com/mngerasimenko/todolist-android) — нативный Android-клиент (Kotlin + Jetpack Compose)
+
+---
+
+## Лицензия
+
+Проект распространяется под лицензией [MIT](LICENSE).
