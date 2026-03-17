@@ -11,24 +11,24 @@ import axios from 'axios'
 export function VerifyEmailPage() {
   const [searchParams] = useSearchParams()
   const token = searchParams.get('token')
-  const { isAuthenticated, user, updateUser } = useAuthStore()
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
-  const [message, setMessage] = useState('')
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+
+  // Определяем начальное состояние синхронно — без токена сразу ошибка
+  const noToken = !token
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>(noToken ? 'error' : 'loading')
+  const [message, setMessage] = useState(noToken ? 'Ссылка недействительна — отсутствует токен' : '')
 
   useEffect(() => {
-    if (!token) {
-      setStatus('error')
-      setMessage('Ссылка недействительна — отсутствует токен')
-      return
-    }
+    if (!token) return
 
     verifyEmail({ token })
       .then((res) => {
         setStatus('success')
         setMessage(res.message)
         // Обновляем статус верификации в store, чтобы баннер исчез
-        if (user) {
-          updateUser({ ...user, email_verified: true })
+        const currentUser = useAuthStore.getState().user
+        if (currentUser) {
+          useAuthStore.getState().updateUser({ ...currentUser, email_verified: true })
         }
       })
       .catch((err) => {
