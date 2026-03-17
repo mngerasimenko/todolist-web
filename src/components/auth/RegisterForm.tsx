@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
 import { UserPlus } from 'lucide-react'
+import { toast } from 'sonner'
 import type { ApiError } from '@/types'
 import axios from 'axios'
 
@@ -30,6 +31,7 @@ export function RegisterForm() {
     setLoading(true)
     try {
       await registerUser({ email: email.trim(), name: name.trim(), password })
+      toast.info('Проверьте почту для подтверждения email')
       navigate('/', { replace: true })
     } catch (err) {
       if (axios.isAxiosError(err) && err.response?.data) {

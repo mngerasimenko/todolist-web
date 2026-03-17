@@ -19,8 +19,26 @@ export interface UserResponse {
   id: number
   email: string
   name: string
+  email_verified?: boolean
   created_task_color?: string
   completed_task_color?: string
+}
+
+export interface VerifyEmailRequest {
+  token: string
+}
+
+export interface ForgotPasswordRequest {
+  email: string
+}
+
+export interface ResetPasswordRequest {
+  token: string
+  password: string
+}
+
+export interface MessageResponse {
+  message: string
 }
 
 export interface LoginResponse {
