@@ -38,3 +38,8 @@ export async function resendVerification(): Promise<MessageResponse> {
   const response = await client.post<MessageResponse>('/auth/resend-verification')
   return response.data
 }
+
+export async function changeEmail(email: string): Promise<MessageResponse> {
+  const response = await client.post<MessageResponse>('/auth/change-email', { email })
+  return response.data
+}
