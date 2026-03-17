@@ -93,6 +93,16 @@ export function RegisterForm() {
           </div>
         </CardContent>
         <CardFooter className="flex-col gap-3">
+          <p className="text-xs text-muted-foreground text-center">
+            Нажимая «Зарегистрироваться», вы соглашаетесь с{' '}
+            <a href="/privacy" target="_blank" className="text-primary hover:underline">
+              Политикой конфиденциальности
+            </a>{' '}
+            и{' '}
+            <a href="/terms" target="_blank" className="text-primary hover:underline">
+              Пользовательским соглашением
+            </a>
+          </p>
           <Button type="submit" className="w-full" disabled={loading}>
             <UserPlus className="h-4 w-4" />
             {loading ? 'Регистрация...' : 'Зарегистрироваться'}

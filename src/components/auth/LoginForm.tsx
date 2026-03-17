@@ -94,6 +94,15 @@ export function LoginForm() {
               Зарегистрироваться
             </Link>
           </p>
+          <p className="text-xs text-muted-foreground">
+            <a href="/privacy" target="_blank" className="hover:underline">
+              Конфиденциальность
+            </a>
+            {' · '}
+            <a href="/terms" target="_blank" className="hover:underline">
+              Условия
+            </a>
+          </p>
         </CardFooter>
       </form>
     </Card>
